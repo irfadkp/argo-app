@@ -2,6 +2,9 @@
 
 A complete e-commerce application built with React, Node.js/Express, and PostgreSQL, designed for deployment with ArgoCD and Kubernetes.
 
+**Updated by:** irfadkp
+**Last Modified:** March 5, 2026
+
 ## 🏗️ Architecture
 
 - **Frontend**: React 18 + Vite + Material-UI + Nginx
