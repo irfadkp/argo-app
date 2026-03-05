@@ -19,10 +19,10 @@ patchesStrategicMerge:
 images:
   - name: ecommerce-backend
     newName: ghcr.io/irfadkp/argo-app/backend
-    newTag: v1.0.11
+    newTag: v1.0.12
   - name: ecommerce-frontend
     newName: ghcr.io/irfadkp/argo-app/frontend
-    newTag: v1.0.11
+    newTag: v1.0.12
 
 # Note: commonLabels removed to avoid conflicts with Argo Rollouts
 # Argo Rollouts validates that service selectors match rollout selectors
