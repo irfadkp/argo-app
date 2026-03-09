@@ -121,9 +121,6 @@ spec:
       canaryService: backend-canary
       stableService: backend-stable
       
-      # Number of pods to run for canary
-      canaryReplicas: 1
-      
       # Steps for progressive rollout
       steps:
       # Step 1: Deploy canary with 20% traffic
