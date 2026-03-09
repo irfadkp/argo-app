@@ -27,5 +27,9 @@ spec:
         duration: 5s
         factor: 2
         maxDuration: 3m
-
-# Made with Bob
+  # --- ADD THIS SECTION BELOW ---
+  ignoreDifferences:
+    - group: networking.k8s.io
+      kind: Ingress
+      jsonPointers:
+        - /status
