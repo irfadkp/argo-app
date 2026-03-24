@@ -6,7 +6,7 @@ metadata:
     app: frontend
     component: ui
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: frontend
