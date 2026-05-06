@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: ecommerce-backend
+        image: ecommerce-backend:1.0.13
         ports:
         - containerPort: 3000
           name: http
