@@ -1,5 +1,6 @@
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { Navigate, Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
+import { startSyntheticLoad, stopSyntheticLoad } from './utils/syntheticLoad';
 
 import { AuthProvider } from './context/AuthContext';
 import CartPage from './pages/CartPage';
@@ -86,9 +87,13 @@ function App() {
     window.addEventListener('error', errorHandler);
     window.addEventListener('unhandledrejection', rejectionHandler);
 
+    // Start synthetic load generator
+    startSyntheticLoad();
+
     return () => {
       window.removeEventListener('error', errorHandler);
       window.removeEventListener('unhandledrejection', rejectionHandler);
+      stopSyntheticLoad();
       logger.info('Application unmounting');
     };
   }, []);

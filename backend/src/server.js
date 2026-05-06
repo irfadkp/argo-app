@@ -9,6 +9,7 @@ const rateLimit = require('express-rate-limit');
 const { sequelize } = require('./models');
 const config = require('./config/app');
 const { logger, requestLogger } = require('./utils/logger');
+const { startSyntheticLoad, stopSyntheticLoad } = require('./utils/syntheticLoad');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -226,6 +227,9 @@ const startServer = async () => {
       // Start periodic logging
       startPeriodicLogger();
       logger.info('Periodic logging initialized - will log every 10 minutes');
+      
+      // Start synthetic load generator
+      startSyntheticLoad();
     });
 
     // Log server errors
@@ -256,6 +260,7 @@ const startServer = async () => {
 process.on('SIGTERM', async () => {
   logger.info('SIGTERM signal received: initiating graceful shutdown');
   try {
+    stopSyntheticLoad();
     await sequelize.close();
     logger.info('Database connections closed');
     logger.info('Server shutdown complete');
@@ -274,6 +279,7 @@ process.on('SIGTERM', async () => {
 process.on('SIGINT', async () => {
   logger.info('SIGINT signal received: initiating graceful shutdown');
   try {
+    stopSyntheticLoad();
     await sequelize.close();
     logger.info('Database connections closed');
     logger.info('Server shutdown complete');
