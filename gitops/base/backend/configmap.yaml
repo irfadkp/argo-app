@@ -20,7 +20,7 @@ data:
   
   # Instana configuration
   instana.enabled: "true"
-  instana.agent.port: "42699"
+  instana.agent.port: "443"
   instana.service.name: "ecommerce-backend"
 
 # Made with Bob
