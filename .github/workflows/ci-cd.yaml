@@ -21,6 +21,7 @@ env:
   REGISTRY: ghcr.io
   BACKEND_IMAGE_NAME: ${{ github.repository }}/backend
   FRONTEND_IMAGE_NAME: ${{ github.repository }}/frontend
+  JAVA_SERVICE_IMAGE_NAME: ${{ github.repository }}/java-service
 
 jobs:
   # Determine version based on commits
@@ -30,6 +31,7 @@ jobs:
       version: ${{ steps.version.outputs.version }}
       backend_changed: ${{ steps.changes.outputs.backend }}
       frontend_changed: ${{ steps.changes.outputs.frontend }}
+      java_service_changed: ${{ steps.changes.outputs.java_service }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -45,6 +47,8 @@ jobs:
               - 'backend/**'
             frontend:
               - 'frontend/**'
+            java_service:
+              - 'java-service/**'
 
       - name: Generate version
         id: version
@@ -141,6 +145,48 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./frontend
+  # Build and push Java service
+  build-java-service:
+    needs: version
+    if: needs.version.outputs.java_service_changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.JAVA_SERVICE_IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ needs.version.outputs.version }}
+            type=raw,value=latest
+            type=sha,prefix={{branch}}-
+
+      - name: Build and push Java service
+        uses: docker/build-push-action@v6
+        with:
+          context: ./java-service
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
           push: ${{ github.event_name == 'push' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -149,8 +195,8 @@ jobs:
 
   # Create GitHub Release
   create-release:
-    needs: [version, build-backend, build-frontend]
-    if: github.event_name == 'push'
+    needs: [version, build-backend, build-frontend, build-java-service]
+    if: github.event_name == 'push' && (needs.version.outputs.backend_changed == 'true' || needs.version.outputs.frontend_changed == 'true' || needs.version.outputs.java_service_changed == 'true')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -169,10 +215,12 @@ jobs:
             ## Changes in this Release
             - Backend: ${{ needs.version.outputs.backend_changed == 'true' && '✅ Updated' || '⏭️ No changes' }}
             - Frontend: ${{ needs.version.outputs.frontend_changed == 'true' && '✅ Updated' || '⏭️ No changes' }}
+            - Java Service: ${{ needs.version.outputs.java_service_changed == 'true' && '✅ Updated' || '⏭️ No changes' }}
             
             ### Docker Images
             ${{ needs.version.outputs.backend_changed == 'true' && format('- Backend: `ghcr.io/{0}/backend:{1}`', github.repository, needs.version.outputs.version) || '' }}
             ${{ needs.version.outputs.frontend_changed == 'true' && format('- Frontend: `ghcr.io/{0}/frontend:{1}`', github.repository, needs.version.outputs.version) || '' }}
+            ${{ needs.version.outputs.java_service_changed == 'true' && format('- Java Service: `ghcr.io/{0}/java-service:{1}`', github.repository, needs.version.outputs.version) || '' }}
             
             ### Manual Deployment
             To deploy this version, update `gitops/overlays/dev/kustomization.yaml`:
@@ -183,6 +231,9 @@ jobs:
                 newTag: ${{ needs.version.outputs.version }}
               - name: ecommerce-frontend
                 newName: ghcr.io/${{ github.repository }}/frontend
+                newTag: ${{ needs.version.outputs.version }}
+              - name: ecommerce-java-service
+                newName: ghcr.io/${{ github.repository }}/java-service
                 newTag: ${{ needs.version.outputs.version }}
             ```
           draft: false

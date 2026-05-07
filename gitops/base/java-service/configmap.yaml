@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: java-service-config
+  labels:
+    app: java-service
+data:
+  # Database configuration
+  database.host: "postgres"
+  database.port: "5432"
+  database.name: "ecommerce"
+  
+  # Instana configuration
+  instana.enabled: "true"
+  instana.agent.host: "instana-agent.instana-agent"
+  instana.agent.port: "42699"
+  instana.service.name: "recommendations-service"
+
+# Made with Bob

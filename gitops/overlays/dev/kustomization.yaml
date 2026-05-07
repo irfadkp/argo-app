@@ -7,6 +7,7 @@ bases:
   - ../../base/database
   - ../../base/backend
   - ../../base/frontend
+  - ../../base/java-service
 
 resources:
   - ingress.yaml
@@ -22,6 +23,9 @@ images:
     newTag: "v1.0.14"
   - name: ecommerce-frontend
     newName: ghcr.io/irfadkp/argo-app/frontend
+    newTag: "v1.0.14"
+  - name: ecommerce-java-service
+    newName: ghcr.io/irfadkp/argo-app/java-service
     newTag: "v1.0.14"
 
 # Note: commonLabels removed to avoid conflicts with Argo Rollouts
