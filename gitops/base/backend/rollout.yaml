@@ -74,9 +74,8 @@ spec:
               key: instana.enabled
         - name: INSTANA_AGENT_HOST
           valueFrom:
-            configMapKeyRef:
-              name: backend-config
-              key: instana.agent.host
+            fieldRef:
+              fieldPath: status.hostIP
         - name: INSTANA_AGENT_PORT
           valueFrom:
             configMapKeyRef:

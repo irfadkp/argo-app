@@ -12,7 +12,6 @@ data:
   
   # Instana configuration
   instana.enabled: "true"
-  instana.agent.host: "instana-agent.instana-agent"
   instana.agent.port: "42699"
   instana.service.name: "recommendations-service"
 
