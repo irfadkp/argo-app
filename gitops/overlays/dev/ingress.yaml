@@ -1,14 +1,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ecommerce-ingress
+  name: bugatti-shop-ingress
   annotations:
     # Remove rewrite-target to preserve the /api prefix
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   ingressClassName: nginx
   rules:
-  - host: ecommerce-dev.local
+  - host: bugatti-shop.local
     http:
       paths:
       - path: /api

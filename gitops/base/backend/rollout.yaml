@@ -4,9 +4,10 @@ metadata:
   name: backend
   labels:
     app: backend
-    app.kubernetes.io/name: backend
+    app.kubernetes.io/name: bugatti-shop-backend
     app.kubernetes.io/component: api
-    app.kubernetes.io/part-of: ecommerce
+    app.kubernetes.io/part-of: bugatti-shop
+    shop: bugatti
 spec:
   replicas: 3
   revisionHistoryLimit: 3
@@ -15,7 +16,7 @@ spec:
       app: backend
       app.kubernetes.io/name: backend
       app.kubernetes.io/component: api
-      app.kubernetes.io/part-of: ecommerce
+      app.kubernetes.io/part-of: bugatti-shop
   
   template:
     metadata:
@@ -23,8 +24,9 @@ spec:
         app: backend
         app.kubernetes.io/name: backend
         app.kubernetes.io/component: api
-        app.kubernetes.io/part-of: ecommerce
+        app.kubernetes.io/part-of: bugatti-shop
         component: api
+        shop: bugatti
     spec:
       containers:
       - name: backend
@@ -144,7 +146,7 @@ spec:
       # Traffic routing (requires service mesh or ingress controller)
       trafficRouting:
         nginx:
-          stableIngress: ecommerce-ingress
+          stableIngress: bugatti-shop-ingress
           annotationPrefix: nginx.ingress.kubernetes.io
       
       # Analysis for automated promotion/rollback

@@ -5,8 +5,9 @@ metadata:
   labels:
     app: postgres
     component: database
+    shop: bugatti
 data:
-  database.name: "ecommerce"
+  database.name: "bugatti_shop"
   database.port: "5432"
 
 # Made with Bob

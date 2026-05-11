@@ -1,7 +1,7 @@
 {
-  "name": "ecommerce-backend",
+  "name": "bugatti-shop-backend",
   "version": "1.0.14",
-  "description": "E-commerce backend API with Express and PostgreSQL",
+  "description": "Bugatti Shop backend API with Express and PostgreSQL",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",

@@ -12,10 +12,11 @@ require('@instana/collector')({
     protocol: 'https',
   },
   agentKey: process.env.INSTANA_AGENT_KEY,
-  serviceName: process.env.INSTANA_SERVICE_NAME || 'ecommerce-backend',
+  serviceName: process.env.INSTANA_SERVICE_NAME || 'bugatti-shop-backend',
   tags: {
     environment: process.env.NODE_ENV || 'development',
     component: 'backend',
+    shop: 'bugatti',
     version: process.env.APP_VERSION || '1.0.0',
   },
 });

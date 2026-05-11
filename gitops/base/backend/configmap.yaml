@@ -5,11 +5,12 @@ metadata:
   labels:
     app: backend
     component: api
+    shop: bugatti
 data:
   # Database configuration
   database.host: "postgres"
   database.port: "5432"
-  database.name: "ecommerce"
+  database.name: "bugatti_shop"
   
   # CORS configuration
   cors.origin: "http://localhost"
@@ -21,6 +22,6 @@ data:
   # Instana configuration
   instana.enabled: "true"
   instana.agent.port: "443"
-  instana.service.name: "ecommerce-backend"
+  instana.service.name: "bugatti-shop-backend"
 
 # Made with Bob

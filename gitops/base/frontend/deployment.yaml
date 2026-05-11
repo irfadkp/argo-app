@@ -5,6 +5,7 @@ metadata:
   labels:
     app: frontend
     component: ui
+    shop: bugatti
 spec:
   replicas: 2
   selector:
@@ -15,6 +16,7 @@ spec:
       labels:
         app: frontend
         component: ui
+        shop: bugatti
     spec:
       containers:
       - name: frontend

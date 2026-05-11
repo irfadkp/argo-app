@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: ecommerce-dev
+namespace: bugatti-shop-dev
 
 bases:
   - ../../base/database
@@ -19,13 +19,13 @@ patchesStrategicMerge:
 
 images:
   - name: ecommerce-backend
-    newName: ghcr.io/irfadkp/argo-app/backend
+    newName: ghcr.io/irfadkp/bugatti-shop/backend
     newTag: "v1.0.14"
   - name: ecommerce-frontend
-    newName: ghcr.io/irfadkp/argo-app/frontend
+    newName: ghcr.io/irfadkp/bugatti-shop/frontend
     newTag: "v1.0.14"
   - name: ecommerce-java-service
-    newName: ghcr.io/irfadkp/argo-app/java-service
+    newName: ghcr.io/irfadkp/bugatti-shop/java-service
     newTag: "v1.0.14"
 
 # Note: commonLabels removed to avoid conflicts with Argo Rollouts

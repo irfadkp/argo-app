@@ -11,6 +11,6 @@ resources:
 commonLabels:
   app.kubernetes.io/name: postgres
   app.kubernetes.io/component: database
-  app.kubernetes.io/part-of: ecommerce
+  app.kubernetes.io/part-of: bugatti-shop
 
 # Made with Bob

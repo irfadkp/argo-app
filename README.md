@@ -1,9 +1,10 @@
-# E-Commerce Application - ArgoCD Ready
+# Bugatti Shop - Luxury E-Commerce Platform
 
-A complete e-commerce application built with React, Node.js/Express, and PostgreSQL, designed for deployment with ArgoCD and Kubernetes.
+A complete luxury e-commerce application built with React, Node.js/Express, and PostgreSQL, designed for deployment with ArgoCD and Kubernetes.
 
+**Application:** Bugatti Shop
 **Updated by:** irfadkp
-**Last Modified:** March 5, 2026
+**Last Modified:** May 11, 2026
 
 ## 🏗️ Architecture
 
@@ -11,11 +12,12 @@ A complete e-commerce application built with React, Node.js/Express, and Postgre
 - **Backend**: Node.js 20 + Express + Sequelize
 - **Database**: PostgreSQL 15
 - **Deployment**: Kubernetes + ArgoCD + Kustomize
+- **Monitoring**: Instana APM
 
 ## 📁 Project Structure
 
 ```
-argo-app/
+bugatti-shop/
 ├── frontend/           # React application
 ├── backend/            # Express API
 ├── gitops/             # Kubernetes manifests
@@ -62,7 +64,7 @@ npm run dev
 ```bash
 docker run -d \
   --name postgres \
-  -e POSTGRES_DB=ecommerce \
+  -e POSTGRES_DB=bugatti_shop \
   -e POSTGRES_USER=postgres \
   -e POSTGRES_PASSWORD=password \
   -p 5432:5432 \
@@ -108,10 +110,10 @@ This project includes an automated CI/CD pipeline using GitHub Actions for build
    ```yaml
    images:
      - name: ecommerce-backend
-       newName: ghcr.io/YOUR_USERNAME/argo-app/backend  # ← Change this
+       newName: ghcr.io/YOUR_USERNAME/bugatti-shop/backend  # ← Change this
        newTag: latest
      - name: ecommerce-frontend
-       newName: ghcr.io/YOUR_USERNAME/argo-app/frontend  # ← Change this
+       newName: ghcr.io/YOUR_USERNAME/bugatti-shop/frontend  # ← Change this
        newTag: latest
    ```
 
@@ -119,7 +121,7 @@ This project includes an automated CI/CD pipeline using GitHub Actions for build
    ```yaml
    spec:
      source:
-       repoURL: https://github.com/YOUR_USERNAME/argo-app.git  # ← Change this
+       repoURL: https://github.com/YOUR_USERNAME/bugatti-shop.git  # ← Change this
    ```
 
 4. **Push to GitHub**:
@@ -149,17 +151,17 @@ If you prefer manual builds:
 
 ```bash
 # Backend
-docker build -t ghcr.io/YOUR_USERNAME/argo-app/backend:v1.0.0 ./backend
+docker build -t ghcr.io/YOUR_USERNAME/bugatti-shop/backend:v1.0.0 ./backend
 
 # Frontend
-docker build -t ghcr.io/YOUR_USERNAME/argo-app/frontend:v1.0.0 ./frontend
+docker build -t ghcr.io/YOUR_USERNAME/bugatti-shop/frontend:v1.0.0 ./frontend
 ```
 
 ### Push to Registry
 
 ```bash
-docker push ghcr.io/YOUR_USERNAME/argo-app/backend:v1.0.0
-docker push ghcr.io/YOUR_USERNAME/argo-app/frontend:v1.0.0
+docker push ghcr.io/YOUR_USERNAME/bugatti-shop/backend:v1.0.0
+docker push ghcr.io/YOUR_USERNAME/bugatti-shop/frontend:v1.0.0
 ```
 
 ## ☸️ Kubernetes Deployment
@@ -171,10 +173,10 @@ Edit `gitops/overlays/dev/kustomization.yaml`:
 ```yaml
 images:
   - name: ecommerce-backend
-    newName: your-registry/ecommerce-backend
+    newName: your-registry/bugatti-shop-backend
     newTag: v1.0.0
   - name: ecommerce-frontend
-    newName: your-registry/ecommerce-frontend
+    newName: your-registry/bugatti-shop-frontend
     newTag: v1.0.0
 ```
 
@@ -187,11 +189,11 @@ images:
 kubectl create secret generic postgres-secret \
   --from-literal=username=postgres \
   --from-literal=password=$(openssl rand -base64 32) \
-  -n ecommerce-dev --dry-run=client -o yaml > gitops/overlays/dev/postgres-secret.yaml
+  -n bugatti-shop-dev --dry-run=client -o yaml > gitops/overlays/dev/postgres-secret.yaml
 
 kubectl create secret generic backend-secret \
   --from-literal=jwt.secret=$(openssl rand -base64 64) \
-  -n ecommerce-dev --dry-run=client -o yaml > gitops/overlays/dev/backend-secret.yaml
+  -n bugatti-shop-dev --dry-run=client -o yaml > gitops/overlays/dev/backend-secret.yaml
 ```
 
 ### 3. Deploy with kubectl (Manual)
@@ -201,9 +203,9 @@ kubectl create secret generic backend-secret \
 kubectl apply -k gitops/overlays/dev
 
 # Check deployment status
-kubectl get pods -n ecommerce-dev
-kubectl get svc -n ecommerce-dev
-kubectl get ingress -n ecommerce-dev
+kubectl get pods -n bugatti-shop-dev
+kubectl get svc -n bugatti-shop-dev
+kubectl get ingress -n bugatti-shop-dev
 ```
 
 ### 4. Deploy with ArgoCD (GitOps)
@@ -236,11 +238,11 @@ kubectl apply -f gitops/argocd/application.yaml
 Or via ArgoCD CLI:
 
 ```bash
-argocd app create ecommerce-dev \
-  --repo https://github.com/your-org/argo-app.git \
+argocd app create bugatti-shop-dev \
+  --repo https://github.com/your-org/bugatti-shop.git \
   --path gitops/overlays/dev \
   --dest-server https://kubernetes.default.svc \
-  --dest-namespace ecommerce-dev \
+  --dest-namespace bugatti-shop-dev \
   --sync-policy automated \
   --auto-prune \
   --self-heal
@@ -258,19 +260,19 @@ argocd app create ecommerce-dev \
 
 Add to `/etc/hosts`:
 ```
-127.0.0.1 ecommerce-dev.local
+127.0.0.1 bugatti-shop.local
 ```
 
-Access: http://ecommerce-dev.local
+Access: http://bugatti-shop.local
 
 ### Port Forward (without Ingress)
 
 ```bash
 # Frontend
-kubectl port-forward svc/frontend 8080:80 -n ecommerce-dev
+kubectl port-forward svc/frontend 8080:80 -n bugatti-shop-dev
 
 # Backend
-kubectl port-forward svc/backend 3000:3000 -n ecommerce-dev
+kubectl port-forward svc/backend 3000:3000 -n bugatti-shop-dev
 ```
 
 ## 📊 Monitoring
@@ -290,21 +292,21 @@ curl http://frontend-service/health
 
 ```bash
 # Backend logs
-kubectl logs -f deployment/backend -n ecommerce-dev
+kubectl logs -f deployment/backend -n bugatti-shop-dev
 
 # Frontend logs
-kubectl logs -f deployment/frontend -n ecommerce-dev
+kubectl logs -f deployment/frontend -n bugatti-shop-dev
 
 # Database logs
-kubectl logs -f statefulset/postgres -n ecommerce-dev
+kubectl logs -f statefulset/postgres -n bugatti-shop-dev
 ```
 
 ### ArgoCD Sync Status
 
 ```bash
-argocd app get ecommerce-dev
-argocd app sync ecommerce-dev
-argocd app history ecommerce-dev
+argocd app get bugatti-shop-dev
+argocd app sync bugatti-shop-dev
+argocd app history bugatti-shop-dev
 ```
 
 ## 🔧 Configuration
@@ -321,10 +323,10 @@ All configuration is managed through Kubernetes ConfigMaps and Secrets:
 
 ```bash
 # Scale backend
-kubectl scale deployment backend --replicas=3 -n ecommerce-dev
+kubectl scale deployment backend --replicas=3 -n bugatti-shop-dev
 
 # Scale frontend
-kubectl scale deployment frontend --replicas=3 -n ecommerce-dev
+kubectl scale deployment frontend --replicas=3 -n bugatti-shop-dev
 ```
 
 ## 🔐 Security Considerations
@@ -341,29 +343,29 @@ kubectl scale deployment frontend --replicas=3 -n ecommerce-dev
 ### Pods not starting
 
 ```bash
-kubectl describe pod <pod-name> -n ecommerce-dev
-kubectl logs <pod-name> -n ecommerce-dev
+kubectl describe pod <pod-name> -n bugatti-shop-dev
+kubectl logs <pod-name> -n bugatti-shop-dev
 ```
 
 ### Database connection issues
 
 ```bash
 # Test database connectivity
-kubectl run -it --rm debug --image=postgres:15-alpine --restart=Never -n ecommerce-dev -- \
-  psql -h postgres -U postgres -d ecommerce
+kubectl run -it --rm debug --image=postgres:15-alpine --restart=Never -n bugatti-shop-dev -- \
+  psql -h postgres -U postgres -d bugatti_shop
 ```
 
 ### ArgoCD sync issues
 
 ```bash
 # Check application status
-argocd app get ecommerce-dev
+argocd app get bugatti-shop-dev
 
 # Force sync
-argocd app sync ecommerce-dev --force
+argocd app sync bugatti-shop-dev --force
 
 # View sync history
-argocd app history ecommerce-dev
+argocd app history bugatti-shop-dev
 ```
 
 ## 📚 API Documentation
@@ -408,7 +410,7 @@ MIT License - see LICENSE file for details
 ## 📞 Support
 
 For issues and questions:
-- GitHub Issues: https://github.com/your-org/argo-app/issues
+- GitHub Issues: https://github.com/your-org/bugatti-shop/issues
 - Documentation: See `docs/` directory
 
 ## 🎯 Roadmap

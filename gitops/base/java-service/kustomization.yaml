@@ -10,6 +10,6 @@ resources:
 commonLabels:
   app.kubernetes.io/name: java-service
   app.kubernetes.io/component: recommendations
-  app.kubernetes.io/part-of: ecommerce
+  app.kubernetes.io/part-of: bugatti-shop
 
 # Made with Bob

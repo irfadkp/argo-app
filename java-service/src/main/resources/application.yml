@@ -1,9 +1,9 @@
 spring:
   application:
-    name: recommendations-service
+    name: bugatti-shop-recommendations
   
   datasource:
-    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:ecommerce}
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:bugatti_shop}
     username: ${DATABASE_USER:postgres}
     password: ${DATABASE_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
@@ -28,7 +28,7 @@ instana:
     host: ${INSTANA_AGENT_HOST:localhost}
     port: ${INSTANA_AGENT_PORT:42699}
   service:
-    name: ${INSTANA_SERVICE_NAME:recommendations-service}
+    name: ${INSTANA_SERVICE_NAME:bugatti-shop-recommendations}
   enabled: ${INSTANA_ENABLED:true}
 
 # Actuator endpoints for health checks

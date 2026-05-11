@@ -5,11 +5,12 @@ metadata:
   labels:
     app: frontend
     component: ui
+    shop: bugatti
 data:
   # Full URL to access backend through Ingress
-  # Frontend and backend are behind the same ingress (ecommerce-dev.local:30112)
+  # Frontend and backend are behind the same ingress (bugatti-shop.local)
   # Frontend at / and backend at /api
-  api.url: "http://ecommerce-dev.local:30839"
+  api.url: "http://bugatti-shop.local:30839"
   
   # Instana End User Monitoring (EUM) configuration
   instana.eum.key: "bnF0YlY1Y0VRNWV2ME1Gek9Jd3NrZw=="

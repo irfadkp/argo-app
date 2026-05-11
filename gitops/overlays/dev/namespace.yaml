@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: ecommerce-dev
+  name: bugatti-shop-dev
   labels:
-    name: ecommerce-dev
+    name: bugatti-shop-dev
     environment: dev
+    app: bugatti-shop
 
 # Made with Bob

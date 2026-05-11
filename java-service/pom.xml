@@ -12,11 +12,11 @@
         <relativePath/>
     </parent>
     
-    <groupId>com.ecommerce</groupId>
-    <artifactId>recommendations-service</artifactId>
+    <groupId>com.bugattishop</groupId>
+    <artifactId>bugatti-shop-recommendations</artifactId>
     <version>1.0.14</version>
-    <name>recommendations-service</name>
-    <description>Product Recommendations Microservice with Instana APM</description>
+    <name>bugatti-shop-recommendations</name>
+    <description>Bugatti Shop Product Recommendations Microservice with Instana APM</description>
     
     <properties>
         <java.version>21</java.version>

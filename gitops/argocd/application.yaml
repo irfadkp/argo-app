@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ecommerce-dev
+  name: bugatti-shop-dev
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://github.com/irfadkp/argo-app.git
+    repoURL: https://github.com/irfadkp/bugatti-shop.git
     targetRevision: main
     path: gitops/overlays/dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: ecommerce-dev
+    namespace: bugatti-shop-dev
   syncPolicy:
     automated:
       prune: true

@@ -4,15 +4,16 @@ metadata:
   name: java-service-config
   labels:
     app: java-service
+    shop: bugatti
 data:
   # Database configuration
   database.host: "postgres"
   database.port: "5432"
-  database.name: "ecommerce"
+  database.name: "bugatti_shop"
   
   # Instana configuration
   instana.enabled: "true"
   instana.agent.port: "443"
-  instana.service.name: "recommendations-service"
+  instana.service.name: "bugatti-shop-recommendations"
 
 # Made with Bob
