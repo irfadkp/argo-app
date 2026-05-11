@@ -13,11 +13,6 @@ resources:
   - secret.yaml
   - analysis-template.yaml
 
-commonLabels:
-  app.kubernetes.io/name: backend-bugatti
-  app.kubernetes.io/component: api
-  app.kubernetes.io/part-of: bugatti-shop
-
 images:
   - name: ecommerce-backend
     newTag: latest

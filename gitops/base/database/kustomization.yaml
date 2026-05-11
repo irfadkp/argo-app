@@ -8,9 +8,4 @@ resources:
   - secret.yaml
   - seed-job.yaml
 
-commonLabels:
-  app.kubernetes.io/name: postgres
-  app.kubernetes.io/component: database
-  app.kubernetes.io/part-of: bugatti-shop
-
 # Made with Bob
