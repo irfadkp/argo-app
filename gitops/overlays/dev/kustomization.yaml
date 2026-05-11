@@ -22,13 +22,13 @@ patches:
 
 images:
   - name: ecommerce-backend
-    newName: ghcr.io/irfadkp/bugatti-shop/backend
+    newName: ghcr.io/irfadkp/argo-app/backend
     newTag: "v1.0.14"
   - name: ecommerce-frontend
-    newName: ghcr.io/irfadkp/bugatti-shop/frontend
+    newName: ghcr.io/irfadkp/argo-app/frontend
     newTag: "v1.0.14"
   - name: ecommerce-java-service
-    newName: ghcr.io/irfadkp/bugatti-shop/java-service
+    newName: ghcr.io/irfadkp/argo-app/java-service
     newTag: "v1.0.14"
 
 # Made with Bob
