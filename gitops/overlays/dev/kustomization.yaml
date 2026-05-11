@@ -11,9 +11,14 @@ resources:
   - ingress.yaml
   - namespace.yaml
 
-replicas:
-  - name: frontend
-    count: 1
+patches:
+  - target:
+      kind: Deployment
+      name: frontend
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1
 
 images:
   - name: ecommerce-backend
@@ -25,9 +30,5 @@ images:
   - name: ecommerce-java-service
     newName: ghcr.io/irfadkp/bugatti-shop/java-service
     newTag: "v1.0.14"
-
-# Note: commonLabels removed to avoid conflicts with Argo Rollouts
-# Argo Rollouts validates that service selectors match rollout selectors
-# commonLabels would add environment: dev to rollout selector, causing mismatch
 
 # Made with Bob
