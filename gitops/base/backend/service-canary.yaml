@@ -2,9 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-canary
+  name: backend-bugatti-canary
   labels:
-    app: backend
+    app: backend-bugatti
+    shop: bugatti
 spec:
   type: ClusterIP
   ports:
@@ -13,16 +14,17 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: backend
+    app: backend-bugatti
 
 ---
 # Stable Service - Routes traffic to stable pods
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-stable
+  name: backend-bugatti-stable
   labels:
-    app: backend
+    app: backend-bugatti
+    shop: bugatti
 spec:
   type: ClusterIP
   ports:
@@ -31,6 +33,6 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: backend
+    app: backend-bugatti
 
 # Made with Bob

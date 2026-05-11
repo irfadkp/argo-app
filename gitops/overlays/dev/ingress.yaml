@@ -15,17 +15,17 @@ spec:
         pathType: Prefix
         backend:
           service:
-            # Use backend-stable for Argo Rollouts traffic management
+            # Use backend-bugatti-stable for Argo Rollouts traffic management
             # Argo Rollouts will automatically manage traffic splitting between
-            # backend-stable and backend-canary services
-            name: backend-stable
+            # backend-bugatti-stable and backend-bugatti-canary services
+            name: backend-bugatti-stable
             port:
               number: 3000
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: frontend
+            name: frontend-bugatti
             port:
               number: 80
 

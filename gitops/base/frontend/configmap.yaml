@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: frontend-config
+  name: frontend-bugatti-config
   labels:
-    app: frontend
+    app: frontend-bugatti
     component: ui
     shop: bugatti
 data:

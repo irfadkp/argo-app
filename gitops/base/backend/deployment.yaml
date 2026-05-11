@@ -52,37 +52,37 @@ spec:
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
-              name: backend-secret
+              name: backend-bugatti-secret
               key: jwt.secret
         - name: CORS_ORIGIN
           valueFrom:
             configMapKeyRef:
-              name: backend-config
+              name: backend-bugatti-config
               key: cors.origin
         - name: INSTANA_ENABLED
           valueFrom:
             configMapKeyRef:
-              name: backend-config
+              name: backend-bugatti-config
               key: instana.enabled
         - name: INSTANA_AGENT_HOST
           valueFrom:
             configMapKeyRef:
-              name: backend-config
+              name: backend-bugatti-config
               key: instana.agent.host
         - name: INSTANA_AGENT_PORT
           valueFrom:
             configMapKeyRef:
-              name: backend-config
+              name: backend-bugatti-config
               key: instana.agent.port
         - name: INSTANA_AGENT_KEY
           valueFrom:
             secretKeyRef:
-              name: backend-secret
+              name: backend-bugatti-secret
               key: instana.agent.key
         - name: INSTANA_SERVICE_NAME
           valueFrom:
             configMapKeyRef:
-              name: backend-config
+              name: backend-bugatti-config
               key: instana.service.name
         resources:
           requests:

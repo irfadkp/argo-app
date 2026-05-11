@@ -1,9 +1,9 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: backend
+  name: backend-bugatti
   labels:
-    app: backend
+    app: backend-bugatti
     app.kubernetes.io/name: bugatti-shop-backend
     app.kubernetes.io/component: api
     app.kubernetes.io/part-of: bugatti-shop
@@ -13,16 +13,16 @@ spec:
   revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app: backend
-      app.kubernetes.io/name: backend
+      app: backend-bugatti
+      app.kubernetes.io/name: backend-bugatti
       app.kubernetes.io/component: api
       app.kubernetes.io/part-of: bugatti-shop
   
   template:
     metadata:
       labels:
-        app: backend
-        app.kubernetes.io/name: backend
+        app: backend-bugatti
+        app.kubernetes.io/name: backend-bugatti
         app.kubernetes.io/component: api
         app.kubernetes.io/part-of: bugatti-shop
         component: api
@@ -42,37 +42,37 @@ spec:
         - name: DATABASE_HOST
           valueFrom:
             configMapKeyRef:
-              name: backend-config
+              name: backend-bugatti-config
               key: database.host
         - name: DATABASE_PORT
           valueFrom:
             configMapKeyRef:
-              name: backend-config
+              name: backend-bugatti-config
               key: database.port
         - name: DATABASE_NAME
           valueFrom:
             configMapKeyRef:
-              name: backend-config
+              name: backend-bugatti-config
               key: database.name
         - name: DATABASE_USER
           valueFrom:
             secretKeyRef:
-              name: backend-secret
+              name: backend-bugatti-secret
               key: database.user
         - name: DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: backend-secret
+              name: backend-bugatti-secret
               key: database.password
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
-              name: backend-secret
+              name: backend-bugatti-secret
               key: jwt.secret
         - name: INSTANA_ENABLED
           valueFrom:
             configMapKeyRef:
-              name: backend-config
+              name: backend-bugatti-config
               key: instana.enabled
         - name: INSTANA_AGENT_HOST
           valueFrom:
@@ -81,17 +81,17 @@ spec:
         - name: INSTANA_AGENT_PORT
           valueFrom:
             configMapKeyRef:
-              name: backend-config
+              name: backend-bugatti-config
               key: instana.agent.port
         - name: INSTANA_AGENT_KEY
           valueFrom:
             secretKeyRef:
-              name: backend-secret
+              name: backend-bugatti-secret
               key: instana.agent.key
         - name: INSTANA_SERVICE_NAME
           valueFrom:
             configMapKeyRef:
-              name: backend-config
+              name: backend-bugatti-config
               key: instana.service.name
         resources:
           requests:
@@ -119,8 +119,8 @@ spec:
   strategy:
     canary:
       # Service references for traffic routing
-      canaryService: backend-canary
-      stableService: backend-stable
+      canaryService: backend-bugatti-canary
+      stableService: backend-bugatti-stable
       
       # Steps for progressive rollout
       steps:
