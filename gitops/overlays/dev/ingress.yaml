@@ -6,7 +6,7 @@ metadata:
     # Remove rewrite-target to preserve the /api prefix
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   rules:
   - host: bugatti-shop.local
     http:
