@@ -3,19 +3,17 @@ kind: Kustomization
 
 namespace: bugatti-shop-dev
 
-bases:
+resources:
   - ../../base/database
   - ../../base/backend
   - ../../base/frontend
   - ../../base/java-service
-
-resources:
   - ingress.yaml
   - namespace.yaml
 
-patchesStrategicMerge:
-  # backend-patch.yaml removed - using Rollout instead of Deployment
-  - frontend-patch.yaml
+replicas:
+  - name: frontend
+    count: 1
 
 images:
   - name: ecommerce-backend
